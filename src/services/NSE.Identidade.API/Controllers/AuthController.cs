@@ -4,6 +4,7 @@ using NSE.Identidade.API.Models;
 
 namespace NSE.Identidade.API.Controllers
 {
+    [ApiController]
     [Route("api/identidade")]
     public class AuthController : Controller
     {
@@ -17,7 +18,7 @@ namespace NSE.Identidade.API.Controllers
         }
 
         [HttpPost("nova-conta")]
-        public async Task<ActionResult> Registrar(UsuarioRegistro usuarioRegistro)
+        public async Task<ActionResult> Registrar([FromBody] UsuarioRegistro usuarioRegistro)
         {
             if (!ModelState.IsValid) return BadRequest();
 
@@ -40,7 +41,7 @@ namespace NSE.Identidade.API.Controllers
         }
 
         [HttpPost("autenticar")]
-        public async Task<ActionResult> Login(UsuarioLogin usuarioLogin)
+        public async Task<ActionResult> Login([FromBody] UsuarioLogin usuarioLogin)
         {
             if (!ModelState.IsValid) return BadRequest();
 
