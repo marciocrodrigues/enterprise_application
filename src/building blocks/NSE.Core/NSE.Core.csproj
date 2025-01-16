@@ -6,4 +6,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Mediator\" />
+    <Folder Include="Messages\" />
+    <Folder Include="Util\" />
+  </ItemGroup>
+
 </Project>
