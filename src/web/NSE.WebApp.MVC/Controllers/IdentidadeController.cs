@@ -29,7 +29,7 @@ namespace NSE.WebApp.MVC.Controllers
             // API - Registro
             var resposta = await _autenticacaoService.Registro(usuarioRegistro);
 
-            if (string.IsNullOrWhiteSpace(resposta)) return View(usuarioRegistro);
+            if (resposta is null) return View(usuarioRegistro);
 
             // Realizar login na APP
 
@@ -52,7 +52,7 @@ namespace NSE.WebApp.MVC.Controllers
             // API - Login
             var resposta = await _autenticacaoService.Login(usuarioLogin);
 
-            if (string.IsNullOrWhiteSpace(resposta)) return View(usuarioLogin);
+            if (resposta is null) return View(usuarioLogin);
 
             // Realizar login na APP
 
