@@ -9,7 +9,6 @@
   <ItemGroup>
     <Folder Include="Mediator\" />
     <Folder Include="Messages\" />
-    <Folder Include="Util\" />
   </ItemGroup>
 
 </Project>
