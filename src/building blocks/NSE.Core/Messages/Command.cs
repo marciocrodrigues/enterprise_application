@@ -1,11 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using MediatR;
+using FluentValidation.Results;
 
 namespace NSE.Core.Messages
 {
-    public abstract class Command : Message
+    public abstract class Command : Message, IRequest<ValidationResult>
     {
         public DateTime Timestamp { get; private set; }
-        public ValidationResult Valid { get; set; }
+        public ValidationResult ValidationResult { get; set; }
 
         protected Command()
         {

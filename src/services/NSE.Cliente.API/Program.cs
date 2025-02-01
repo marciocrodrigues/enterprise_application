@@ -9,6 +9,12 @@ builder.Services.AddApiConfiguration(builder.Configuration);
 
 builder.Services.AddJwtConfiguration(builder.Configuration);
 
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssemblyContaining<Program>();
+    cfg.Lifetime = ServiceLifetime.Scoped;
+});
+
 builder.Services.RegisterServices();
 
 builder.Services.AddSwaggerConfiguration();
