@@ -22,4 +22,8 @@
     <Folder Include="wwwroot\images\misc\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\NSE.Core\NSE.Core.csproj" />
+  </ItemGroup>
+
 </Project>
