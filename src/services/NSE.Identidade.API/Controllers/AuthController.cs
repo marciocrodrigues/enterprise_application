@@ -24,13 +24,11 @@ namespace NSE.Identidade.API.Controllers
         public AuthController(
             SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager,
-            IOptions<AppSettings> appSettings,
-            IRpc rpc)
+            IOptions<AppSettings> appSettings)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
-            _rpc = rpc;
         }
 
         [HttpPost("nova-conta")]
