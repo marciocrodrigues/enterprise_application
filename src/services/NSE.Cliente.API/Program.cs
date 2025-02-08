@@ -17,6 +17,8 @@ builder.Services.AddMediatR(cfg =>
 
 builder.Services.RegisterServices();
 
+builder.Services.AddMessageBusConfiguration(builder.Configuration);
+
 builder.Services.AddSwaggerConfiguration();
 
 var app = builder.Build();
