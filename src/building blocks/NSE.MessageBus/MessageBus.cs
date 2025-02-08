@@ -9,7 +9,7 @@ namespace NSE.MessageBus
     {
         private IRpc _rpc;
         private IPubSub _pubSub;
-        private bool? _isConnected;
+        private IBus _bus;
         private readonly string _connectionString;
 
         public MessageBus(string connectionString)
@@ -18,7 +18,9 @@ namespace NSE.MessageBus
             TryConnect();
         }
 
-        public bool IsConnected => _isConnected ?? false;
+        public bool IsConnected => AdvancedBus?.IsConnected ?? false;
+
+        public IAdvancedBus AdvancedBus => _bus?.Advanced;
 
         public async Task<TResponse> RequestAsync<TRequest, TResponse>(TRequest request)
             where TRequest : IntegrationEvent
@@ -85,18 +87,26 @@ namespace NSE.MessageBus
 
             policy.Execute(() =>
             {
-                var createBus = RabbitHutch.CreateBus(_connectionString);
+                _bus = RabbitHutch.CreateBus(_connectionString);
+                AdvancedBus.Disconnected += onDisconnect;
 
-                if (createBus == null)
+                if (_bus == null)
                 {
-                    _isConnected = false;
                     return;
                 }
 
-                _isConnected = true;
-                _rpc = createBus.Rpc;
-                _pubSub = createBus.PubSub;
+                _rpc = _bus.Rpc;
+                _pubSub = _bus.PubSub;
             });
+        }
+
+        private void onDisconnect(object? s, EventArgs e)
+        {
+            var policy = Policy.Handle<EasyNetQException>()
+                .Or<BrokerUnreachableException>()
+                .RetryForever();
+
+            policy.Execute(TryConnect);
         }
 
         public void Dispose()
